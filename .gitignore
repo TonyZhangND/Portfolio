@@ -2,3 +2,5 @@
 venv/
 
 alphavantage.key
+portfolio.csv
+positions.csv
