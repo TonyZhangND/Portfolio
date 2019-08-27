@@ -16,6 +16,7 @@ def to_csv():
     following to PORTFOLIO: Symbol, Shares, Price-per-share, Total value, Timestamp,
     where Price-per-share is the price at the time represented in Timestamp.
     It also prints these information to STDIO
+    TODO: Sort the entries based on percentage value
     :return: null
     """
     with open(PORTFOLIO, "w") as portfolio_file:
@@ -56,7 +57,21 @@ def gen_graphics():
     Generates graphics for PORTFOLIO
     :return: null
     """
-    return
+    # Fetch data from PORTFOLIO
+    symbols, shares, pps, values = [], [], [], []
+    with open(PORTFOLIO, "r") as portfolio_file:
+        reader = csv.DictReader(portfolio_file)
+        for cvs_row in reader:
+            symbols.append(cvs_row['Symbol'])
+            shares.append(cvs_row['Shares'])
+            pps.append(cvs_row['Price-per-share'])
+            values.append(cvs_row['Total value'])
+
+    # Draw pie chart
+    fig1, ax1 = plt.subplots()
+    ax1.pie(values, labels=symbols, autopct='%1.1f%%')
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    plt.show()
 
 
 def main():
